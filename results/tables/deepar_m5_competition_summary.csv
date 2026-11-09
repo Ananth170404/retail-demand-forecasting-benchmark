@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+DeepAR-mean,30490,30490,1.1076,0.9642,1.0328,0.7688,0.7101,0.7405,1.5521,1.1982,1.3227,1.3961,1.4907,1.4164,1.1441,0.7434,0.9218,1.4498,0.9324,1.1642,-0.1029,-0.0393,-0.0705,1.0715,0

@@ -1,0 +1,18 @@
+# Best of 60 trials (0 pruned) on the walmart validation window(s) (score 1425.0938; untuned default 1517.4401).
+# Paste into the test config's `models:` list.
+- tag: gbmtuned
+  kind: gbm
+  params:
+    feature_step: lags
+    seasonal_difference: 52
+    objectives:
+    - l2
+    lgb_params:
+      num_leaves: 162
+      learning_rate: 0.02235374790976261
+      n_estimators: 300
+      min_child_samples: 256
+      colsample_bytree: 0.7220487885379965
+      subsample: 0.8434924503576761
+      reg_lambda: 0.03840542332121139
+    model_name: LightGBM-tuned

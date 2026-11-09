@@ -1,0 +1,264 @@
+{
+  "config_path": "configs\\m5_competition.yaml",
+  "config": {
+    "dataset": "m5",
+    "modes": [
+      "competition"
+    ],
+    "data": {
+      "max_series_per_state": null,
+      "trim_zeros": true
+    },
+    "significance": true,
+    "models": [
+      {
+        "tag": "baselines",
+        "kind": "baselines",
+        "params": {
+          "include_slow": false,
+          "n_jobs": 1
+        }
+      },
+      {
+        "tag": "autostats",
+        "kind": "baselines",
+        "params": {
+          "only": [
+            "AutoETS",
+            "AutoTheta"
+          ],
+          "n_jobs": 4,
+          "chunk_size": 1000
+        }
+      },
+      {
+        "tag": "gbm",
+        "kind": "gbm",
+        "params": {
+          "objectives": [
+            "tweedie",
+            "l2"
+          ],
+          "train_days": 730
+        }
+      },
+      {
+        "tag": "gbmladder",
+        "kind": "gbm",
+        "params": {
+          "objectives": [
+            "l2"
+          ],
+          "train_days": 730,
+          "ablation_ladder": true
+        }
+      },
+      {
+        "tag": "gbmtuned",
+        "kind": "gbm",
+        "params": {
+          "feature_step": "events",
+          "train_days": 730,
+          "objectives": [
+            "tweedie"
+          ],
+          "lgb_params": {
+            "num_leaves": 76,
+            "learning_rate": 0.0978020628793782,
+            "n_estimators": 400,
+            "min_child_samples": 90,
+            "colsample_bytree": 0.7737412669782495,
+            "subsample": 0.7497219450328098,
+            "reg_lambda": 0.0025509999941952704,
+            "tweedie_variance_power": 1.2767390191070909
+          },
+          "model_name": "LightGBM-tuned"
+        }
+      },
+      {
+        "tag": "nhitsmedian",
+        "kind": "neural",
+        "params": {
+          "model": "nhits",
+          "max_steps": 2000
+        }
+      },
+      {
+        "tag": "nhits",
+        "kind": "neural",
+        "params": {
+          "model": "nhits",
+          "max_steps": 2000,
+          "loss": "negbin"
+        }
+      },
+      {
+        "tag": "nbeats",
+        "kind": "nbeats",
+        "params": {
+          "variants": [
+            "nbeats",
+            "nbeatsx"
+          ],
+          "max_steps": 2000,
+          "loss": "mse"
+        }
+      },
+      {
+        "tag": "bitcn",
+        "kind": "neural",
+        "params": {
+          "model": "bitcn",
+          "max_steps": 2000,
+          "loss": "negbin"
+        }
+      },
+      {
+        "tag": "tft",
+        "kind": "neural",
+        "params": {
+          "model": "tft",
+          "max_steps": 2000,
+          "loss": "negbin"
+        }
+      },
+      {
+        "tag": "deepar",
+        "kind": "neural",
+        "params": {
+          "model": "deepar",
+          "max_steps": 2000,
+          "point": "mean"
+        }
+      },
+      {
+        "tag": "gbmtuned3w",
+        "kind": "gbm",
+        "params": {
+          "feature_step": "events",
+          "train_days": 730,
+          "objectives": [
+            "l2"
+          ],
+          "lgb_params": {
+            "num_leaves": 238,
+            "learning_rate": 0.04478769292367072,
+            "n_estimators": 150,
+            "min_child_samples": 29,
+            "colsample_bytree": 0.8567189925915888,
+            "subsample": 0.5942572915365154,
+            "reg_lambda": 0.006424636028441375
+          },
+          "model_name": "LightGBM-tuned-3w"
+        }
+      },
+      {
+        "tag": "nbeatstuned3w",
+        "kind": "nbeats",
+        "params": {
+          "variants": [
+            "nbeats"
+          ],
+          "loss": "mse",
+          "max_steps": 3000,
+          "hparams": {
+            "input_size": 224,
+            "learning_rate": 0.0007886508880857416,
+            "batch_size": 256,
+            "scaler_type": "standard"
+          },
+          "model_name": "N-BEATS-tuned-3w"
+        }
+      },
+      {
+        "tag": "chronos",
+        "kind": "chronos",
+        "params": {
+          "point": "mean"
+        }
+      },
+      {
+        "tag": "chronosmedian",
+        "kind": "chronos",
+        "params": {
+          "point": "median"
+        }
+      },
+      {
+        "tag": "xgboost",
+        "kind": "gbm",
+        "params": {
+          "library": "xgboost",
+          "feature_step": "events",
+          "train_days": 730,
+          "objectives": [
+            "l2"
+          ],
+          "model_name": "XGBoost-l2"
+        }
+      },
+      {
+        "tag": "catboost",
+        "kind": "gbm",
+        "params": {
+          "library": "catboost",
+          "device": "cuda",
+          "feature_step": "events",
+          "train_days": 730,
+          "objectives": [
+            "l2"
+          ],
+          "model_name": "CatBoost-l2"
+        }
+      },
+      {
+        "tag": "gbmstore",
+        "kind": "gbm",
+        "params": {
+          "group_by": "store_id_cat",
+          "feature_step": "events",
+          "train_days": 730,
+          "objectives": [
+            "l2"
+          ],
+          "model_name": "LightGBM-store"
+        }
+      },
+      {
+        "tag": "gbmdirect",
+        "kind": "gbm",
+        "params": {
+          "direct": true,
+          "feature_step": "events",
+          "train_days": 730,
+          "objectives": [
+            "l2"
+          ],
+          "model_name": "LightGBM-direct"
+        }
+      },
+      {
+        "tag": "gbmstoredirect",
+        "kind": "gbm",
+        "params": {
+          "group_by": "store_id_cat",
+          "direct": true,
+          "feature_step": "events",
+          "train_days": 730,
+          "objectives": [
+            "l2"
+          ],
+          "model_name": "LightGBM-store-direct"
+        }
+      }
+    ],
+    "name": "m5_competition",
+    "backtest": {}
+  },
+  "only": [
+    "gbmstoredirect"
+  ],
+  "git_commit": "6204553c7fb3cca76e8d8cfa44465e09e2885e3c-dirty",
+  "started_utc": "2026-10-30T16:17:15+00:00",
+  "finished_utc": "2026-10-30T16:20:56+00:00"
+}

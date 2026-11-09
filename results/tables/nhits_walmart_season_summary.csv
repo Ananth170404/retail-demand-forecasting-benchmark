@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+NHITS,3112,3112,25.2104,2.7719,3.0828,47.6574,2.6261,2.8892,0.77,0.5374,0.5571,0.7885,0.7094,0.7727,6126.3376,3082.8424,4970.4069,7520.6663,3712.8287,6055.5499,4659.0294,2065.0861,3771.6052,0.7018,0

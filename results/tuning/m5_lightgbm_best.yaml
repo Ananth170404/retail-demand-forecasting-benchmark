@@ -1,0 +1,19 @@
+# Best of 30 trials on the m5 validation window (score 0.5188; untuned default 0.6144).
+# Paste into the test config's `models:` list.
+- tag: gbmtuned
+  kind: gbm
+  params:
+    feature_step: events
+    train_days: 730
+    objectives:
+    - tweedie
+    lgb_params:
+      num_leaves: 76
+      learning_rate: 0.0978020628793782
+      n_estimators: 400
+      min_child_samples: 90
+      colsample_bytree: 0.7737412669782495
+      subsample: 0.7497219450328098
+      reg_lambda: 0.0025509999941952704
+      tweedie_variance_power: 1.2767390191070909
+    model_name: LightGBM-tuned

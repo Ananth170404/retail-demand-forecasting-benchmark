@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+BiTCN,3112,3112,23.7735,1.4822,1.622,46.6079,1.5901,1.7902,0.4577,0.2523,0.3432,0.3755,0.2404,0.3184,3205.6228,1526.5819,2505.4676,4818.4884,2191.6771,3604.6413,2473.8981,929.1143,1853.6753,0.8417,0

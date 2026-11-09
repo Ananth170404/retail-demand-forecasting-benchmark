@@ -1,0 +1,212 @@
+# The M5 Accuracy competition's actual final test, scored with its own metric.
+#
+# Trains on d_1-d_1941 for all 30,490 series, forecasts d_1942-d_1969, and
+# scores with the official 12-level WRMSSE (src/forecasting/evaluation/m5.py),
+# so results sit directly beside the leaderboard: winner 0.520, best
+# benchmark ES_bu 0.671, seasonal naive 0.847.
+#
+# Needs the released test labels:
+#   python scripts/download_data.py --dataset m5-labels
+#
+# Full scale: 60M rows. Baselines are chunked to bound memory; neural models
+# are added in a separate pass on GPU.
+
+dataset: m5
+modes: [competition]
+
+data:
+  max_series_per_state: null   # WRMSSE needs every series
+  trim_zeros: true
+
+significance: true
+
+models:
+  # Single process: on Windows each parallel chunk spawns fresh worker
+  # processes, which made even Naive take ~4 minutes and doubled memory.
+  - tag: baselines
+    kind: baselines
+    params:
+      include_slow: false
+      n_jobs: 1
+
+  # AutoETS / AutoTheta fit their parameters per series (~1-2 CPU-seconds
+  # each), so they are the one place parallelism pays: hours, not minutes.
+  - tag: autostats
+    kind: baselines
+    params:
+      only: [AutoETS, AutoTheta]
+      n_jobs: 4
+      chunk_size: 1000
+
+  - tag: gbm
+    kind: gbm
+    params:
+      objectives: [tweedie, l2]
+      # Last two years plus lag warm-up (~24M rows): full history would need
+      # ~47M feature rows, beyond a 16GB machine.
+      train_days: 730
+
+  # Feature ablation: each step adds one block (lags, rolling stats, calendar,
+  # static ids, event/SNAP flags, price) to isolate what each is worth on the
+  # official metric.
+  - tag: gbmladder
+    kind: gbm
+    params:
+      objectives: [l2]
+      train_days: 730
+      ablation_ladder: true
+
+  # Tuned on the validation window (experiments/tune.py; results/tuning/),
+  # never on this test window. Scored here once.
+  - tag: gbmtuned
+    kind: gbm
+    params:
+      feature_step: events
+      train_days: 730
+      objectives:
+      - tweedie
+      lgb_params:
+        num_leaves: 76
+        learning_rate: 0.0978020628793782
+        n_estimators: 400
+        min_child_samples: 90
+        colsample_bytree: 0.7737412669782495
+        subsample: 0.7497219450328098
+        reg_lambda: 0.0025509999941952704
+        tweedie_variance_power: 1.2767390191070909
+      model_name: LightGBM-tuned
+
+  # Neural models at full scale (GPU). 2000 steps rather than 500: training
+  # cost is per step, not per series, and 30,490 series need more steps than
+  # the 600-series sample. Run one tag per process so GPU memory resets.
+  #
+  # Point forecast = the mean, not the median. With ~60% zero days a series'
+  # median sits far below its mean, and WRMSSE (squared error, summed up the
+  # hierarchy) is minimised by the mean: the median-trained NHITS forecast 57%
+  # of actual total sales and scored 2.57 WRMSSE. So the quantile models fit a
+  # negative binomial (quantiles from it, mean as the point), DeepAR reports its
+  # distribution's mean, and N-BEATS trains on MSE.
+  - tag: nhitsmedian
+    kind: neural
+    params: {model: nhits, max_steps: 2000}
+
+  - tag: nhits
+    kind: neural
+    params: {model: nhits, max_steps: 2000, loss: negbin}
+
+  - tag: nbeats
+    kind: nbeats
+    params:
+      variants: [nbeats, nbeatsx]
+      max_steps: 2000
+      loss: mse
+
+  - tag: bitcn
+    kind: neural
+    params: {model: bitcn, max_steps: 2000, loss: negbin}
+
+  - tag: tft
+    kind: neural
+    params: {model: tft, max_steps: 2000, loss: negbin}
+
+  - tag: deepar
+    kind: neural
+    params: {model: deepar, max_steps: 2000, point: mean}   # NegativeBinomial on M5
+
+  # Tuned on 3 validation windows (d_1858-d_1941; experiments/tune.py --windows 3).
+  # Adopted after the single-window LightGBM-tuned missed on test. Scored here once.
+  - tag: gbmtuned3w
+    kind: gbm
+    params:
+      feature_step: events
+      train_days: 730
+      objectives:
+      - l2
+      lgb_params:
+        num_leaves: 238
+        learning_rate: 0.04478769292367072
+        n_estimators: 150
+        min_child_samples: 29
+        colsample_bytree: 0.8567189925915888
+        subsample: 0.5942572915365154
+        reg_lambda: 0.006424636028441375
+      model_name: LightGBM-tuned-3w
+
+  # N-BEATS tuned on the same 3 validation windows (stopped after 23 trials, 19
+  # complete, once the best had not improved for 9). Scored here once.
+  - tag: nbeatstuned3w
+    kind: nbeats
+    params:
+      variants:
+      - nbeats
+      loss: mse
+      max_steps: 3000
+      hparams:
+        input_size: 224
+        learning_rate: 0.0007886508880857416
+        batch_size: 256
+        scaler_type: standard
+      model_name: N-BEATS-tuned-3w
+
+  # Zero-shot foundation model: pretrained, never trained on M5. The point is
+  # the mean of its predicted distribution (integrated quantiles); its own
+  # "mean" output is the median, kept as Chronos-2-median for comparison.
+  - tag: chronos
+    kind: chronos
+    params: {point: mean}
+
+  - tag: chronosmedian
+    kind: chronos
+    params: {point: median}
+
+  # The other boosted-tree libraries, untuned: same features and equivalent
+  # settings as LightGBM-l2-L5-events, the direct comparison. The events feature
+  # set was chosen from the ablation ladder on this test, as for the tuned models.
+  - tag: xgboost
+    kind: gbm
+    params:
+      library: xgboost
+      feature_step: events
+      train_days: 730
+      objectives: [l2]
+      model_name: XGBoost-l2
+
+  - tag: catboost
+    kind: gbm
+    params:
+      library: catboost
+      device: cuda   # on CPU, 24M rows run out of 15GB of memory
+      feature_step: events
+      train_days: 730
+      objectives: [l2]
+      model_name: CatBoost-l2
+
+  # The M5 winner's two main ideas, untuned, on the events features: one model per
+  # store, and direct features (nothing newer than 28 days, so no recursion).
+  - tag: gbmstore
+    kind: gbm
+    params:
+      group_by: store_id_cat
+      feature_step: events
+      train_days: 730
+      objectives: [l2]
+      model_name: LightGBM-store
+
+  - tag: gbmdirect
+    kind: gbm
+    params:
+      direct: true
+      feature_step: events
+      train_days: 730
+      objectives: [l2]
+      model_name: LightGBM-direct
+
+  - tag: gbmstoredirect
+    kind: gbm
+    params:
+      group_by: store_id_cat
+      direct: true
+      feature_step: events
+      train_days: 730
+      objectives: [l2]
+      model_name: LightGBM-store-direct

@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+LightGBM-tuned-3w,30490,30490,1.1204,0.9653,1.0437,0.7563,0.6973,0.7285,1.6167,1.1916,1.3735,1.4013,1.5251,1.4241,1.1066,0.7237,0.8991,1.4067,0.9217,1.1402,-0.0501,-0.0341,-0.0268,1.0348,0

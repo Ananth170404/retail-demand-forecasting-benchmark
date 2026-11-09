@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+TFT-negbin,30490,30490,1.1131,0.9674,1.0372,0.7638,0.7066,0.736,1.5758,1.204,1.342,1.3956,1.4945,1.4163,1.1323,0.7373,0.9137,1.4378,0.9242,1.1556,-0.0683,-0.0352,-0.0493,1.0474,0

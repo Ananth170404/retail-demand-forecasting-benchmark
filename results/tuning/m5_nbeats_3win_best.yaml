@@ -1,0 +1,15 @@
+# Best of 19 trials (3 pruned) on the m5 validation window(s) (score 0.7225; untuned default 0.9191).
+# Paste into the test config's `models:` list.
+- tag: nbeatstuned3w
+  kind: nbeats
+  params:
+    variants:
+    - nbeats
+    loss: mse
+    max_steps: 3000
+    hparams:
+      input_size: 224
+      learning_rate: 0.0007886508880857416
+      batch_size: 256
+      scaler_type: standard
+    model_name: N-BEATS-tuned-3w

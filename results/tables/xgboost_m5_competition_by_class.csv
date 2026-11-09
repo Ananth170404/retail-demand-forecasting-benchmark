@@ -1,0 +1,2 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+XGBoost-l2,0.5992,0.7156,0.6287,0.6848

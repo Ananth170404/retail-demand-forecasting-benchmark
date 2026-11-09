@@ -1,0 +1,2 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+CatBoost-l2,0.5977,0.7145,0.6271,0.6888

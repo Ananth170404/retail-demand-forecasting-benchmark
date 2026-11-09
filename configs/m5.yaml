@@ -1,0 +1,55 @@
+# Full M5 benchmark: every model, both evaluation modes.
+#
+# Reproduces the committed results/tables/*_m5_* tables. Anything not set here
+# falls back to DATASET_CONFIG in experiments/_common.py; `backtest` may
+# override any of its keys (h, n_windows, min_train_periods, headline_metric...).
+#
+# Runtime on CPU-only torch: baselines + GBM ~1h; each neural model ~0.5-3h per
+# mode (TFT is the slowest). Use --only to run a subset and --skip-existing to
+# resume after an interruption.
+
+dataset: m5
+modes: [rolling, official]
+
+data:
+  max_series_per_state: 200   # 600 series; null loads all 30,490
+  trim_zeros: true
+
+backtest: {}                  # e.g. {n_windows: 4} for a quicker rolling run
+
+significance: true
+
+models:
+  - tag: baselines
+    kind: baselines
+    params:
+      include_slow: true      # AutoETS / AutoTheta
+      n_jobs: 4               # statsforecast copies the panel per process
+      chunk_size: null        # set e.g. 1000 for panels in the thousands
+
+  - tag: gbm
+    kind: gbm
+    params:
+      objectives: [tweedie, l2]
+
+  - tag: nbeats
+    kind: nbeats
+    params:
+      variants: [nbeats, nbeatsx]
+      max_steps: 500
+
+  - tag: nhits
+    kind: neural
+    params: {model: nhits, max_steps: 500}
+
+  - tag: tft
+    kind: neural
+    params: {model: tft, max_steps: 500}
+
+  - tag: bitcn
+    kind: neural
+    params: {model: bitcn, max_steps: 500}
+
+  - tag: deepar
+    kind: neural
+    params: {model: deepar, max_steps: 500}   # NegativeBinomial on M5

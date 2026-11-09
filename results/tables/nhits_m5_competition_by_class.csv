@@ -1,0 +1,2 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+NHITS-negbin,0.6234,0.7292,0.6443,0.7211

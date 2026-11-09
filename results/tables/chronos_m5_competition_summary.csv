@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+Chronos-2,30490,30490,1.0506,0.9274,0.9846,0.7538,0.6945,0.7256,1.456,1.1726,1.2619,1.4016,1.5037,1.4233,1.0914,0.726,0.8888,1.4059,0.9172,1.1396,-0.0279,-0.0055,-0.0169,1.0194,0

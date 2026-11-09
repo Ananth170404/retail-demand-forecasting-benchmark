@@ -1,0 +1,2 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+TFT-negbin,0.6162,0.7236,0.637,0.7135

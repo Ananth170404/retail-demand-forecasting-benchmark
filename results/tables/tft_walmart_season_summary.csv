@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+TFT,3112,3112,23.7492,1.3274,1.4159,46.2854,1.3906,1.5722,0.5559,0.2229,0.2891,0.3569,0.214,0.3053,2701.9019,1399.7712,2168.1224,4170.2022,1980.4523,3161.7228,1477.7298,481.6989,1141.556,0.9054,0

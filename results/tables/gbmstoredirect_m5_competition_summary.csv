@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+LightGBM-store-direct,30490,30490,1.1003,0.9566,1.0274,0.7595,0.6978,0.7305,1.5797,1.1929,1.3464,1.4046,1.5107,1.4262,1.115,0.7299,0.8981,1.4279,0.9203,1.148,0.0542,-0.0134,0.0204,0.9623,0

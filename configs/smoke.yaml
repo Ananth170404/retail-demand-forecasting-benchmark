@@ -1,0 +1,35 @@
+# Fast end-to-end check of the benchmark harness, not a result.
+#
+# One kind of each model family, one window, a handful of training steps.
+# Always run with --output-dir pointing somewhere other than results/tables:
+#   python experiments/run_benchmark.py --config configs/smoke.yaml --output-dir <tmp>
+
+dataset: walmart
+modes: [official]
+
+data:
+  trim_zeros: true
+
+significance: true
+
+models:
+  - tag: baselines
+    kind: baselines
+    params:
+      include_slow: false
+      only: [Zero, Naive, SeasonalNaive]
+
+  - tag: gbm
+    kind: gbm
+    params:
+      objectives: [tweedie]
+
+  - tag: nbeats
+    kind: nbeats
+    params:
+      variants: [nbeats]
+      max_steps: 5
+
+  - tag: nhits
+    kind: neural
+    params: {model: nhits, max_steps: 5}

@@ -1,0 +1,2 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+LightGBM-store-direct,0.5951,0.7151,0.6267,0.6945

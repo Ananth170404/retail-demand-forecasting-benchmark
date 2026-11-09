@@ -1,0 +1,8 @@
+# Store text with LF line endings regardless of the committer's platform.
+* text=auto eol=lf
+
+# Binary artifacts: never touch.
+*.gz      binary
+*.parquet binary
+*.png     binary
+*.pdf     binary

@@ -1,0 +1,48 @@
+# Full Walmart benchmark: every model, both evaluation modes.
+#
+# Reproduces the committed results/tables/*_walmart_* tables. See configs/m5.yaml
+# for how keys fall back to DATASET_CONFIG.
+
+dataset: walmart
+modes: [rolling, official]
+
+data:
+  trim_zeros: true
+
+backtest: {}
+
+significance: true
+
+models:
+  - tag: baselines
+    kind: baselines
+    params:
+      include_slow: true
+      n_jobs: 4
+
+  - tag: gbm
+    kind: gbm
+    params:
+      objectives: [tweedie, l2]
+
+  - tag: nbeats
+    kind: nbeats
+    params:
+      variants: [nbeats, nbeatsx]
+      max_steps: 500
+
+  - tag: nhits
+    kind: neural
+    params: {model: nhits, max_steps: 500}
+
+  - tag: tft
+    kind: neural
+    params: {model: tft, max_steps: 500}
+
+  - tag: bitcn
+    kind: neural
+    params: {model: bitcn, max_steps: 500}
+
+  - tag: deepar
+    kind: neural
+    params: {model: deepar, max_steps: 500}   # StudentT on Walmart revenue

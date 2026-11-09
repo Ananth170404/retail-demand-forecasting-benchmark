@@ -1,0 +1,3 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+AutoETS,30490,30490,1.0615,0.9297,0.9931,0.7607,0.7009,0.7318,1.4568,1.1691,1.2655,1.4152,1.5238,1.4379,1.11,0.7269,0.8939,1.4331,0.9259,1.1517,0.009,0.0046,0.0055,0.9937,0
+AutoTheta,30490,30490,1.079,0.9381,1.007,0.7691,0.7124,0.741,1.4697,1.149,1.2692,1.4177,1.5251,1.4405,1.1194,0.7329,0.9029,1.4434,0.935,1.1618,-0.0006,0.0017,-0.0048,1.0004,0

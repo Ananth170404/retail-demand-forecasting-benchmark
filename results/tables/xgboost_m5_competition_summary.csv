@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+XGBoost-l2,30490,30490,1.0365,0.906,0.9698,0.7545,0.6962,0.7265,1.4041,1.1452,1.2381,1.4374,1.5855,1.4634,1.0781,0.706,0.8714,1.4101,0.9221,1.1405,0.0719,0.0552,0.0745,0.9501,0

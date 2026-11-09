@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+LightGBM-l2-sdiff52,3112,3112,28.2714,1.0605,1.1246,47.4563,1.0735,1.1434,3.3193,0.1646,0.2583,0.3293,0.166,0.2785,1876.6621,1064.1744,1492.5683,2550.8486,1396.1654,2020.6461,115.1836,101.009,222.6228,0.9926,0

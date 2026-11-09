@@ -1,0 +1,18 @@
+# Best of 19 trials (11 pruned) on the m5 validation window(s) (score 0.6211; untuned default 0.6289).
+# Paste into the test config's `models:` list.
+- tag: gbmtuned3w
+  kind: gbm
+  params:
+    feature_step: events
+    train_days: 730
+    objectives:
+    - l2
+    lgb_params:
+      num_leaves: 238
+      learning_rate: 0.04478769292367072
+      n_estimators: 150
+      min_child_samples: 29
+      colsample_bytree: 0.8567189925915888
+      subsample: 0.5942572915365154
+      reg_lambda: 0.006424636028441375
+    model_name: LightGBM-tuned-3w

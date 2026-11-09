@@ -1,0 +1,8 @@
+model,erratic (n=342),intermittent (n=81),lumpy (n=182),smooth (n=2507)
+LightGBM-l2-sdiff52-L1-lags,1.045,0.7447,1.0554,1.0035
+LightGBM-l2-sdiff52-L2-rolling,1.0314,0.7059,1.0388,0.9971
+LightGBM-l2-sdiff52-L3-calendar,1.0717,0.7198,1.0496,1.062
+LightGBM-l2-sdiff52-L4-static,1.0717,0.7788,1.0596,1.0713
+LightGBM-l2-sdiff52-L5-events,1.0593,2.0439,1.3506,1.0434
+LightGBM-l2-sdiff52-L6-covariates,1.0494,2.3124,1.3925,1.0446
+LightGBM-l2-sdiff52-L7-holiday,1.0459,1.7148,1.2548,1.0347

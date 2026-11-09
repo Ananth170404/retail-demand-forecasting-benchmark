@@ -1,0 +1,2 @@
+model,n_series,n_obs,MASE_mean,MASE_median,MASE_trimmed,RMSSE_mean,RMSSE_median,RMSSE_trimmed,WAPE_mean,WAPE_median,WAPE_trimmed,sMAPE_mean,sMAPE_median,sMAPE_trimmed,MAE_mean,MAE_median,MAE_trimmed,RMSE_mean,RMSE_median,RMSE_trimmed,Bias_mean,Bias_median,Bias_trimmed,Volume_ratio,MASE_nan
+LightGBM-tweedie-allrows,3112,3112,25.681,1.1977,1.26,46.0375,1.1823,1.2489,2.0424,0.1803,0.2722,0.3531,0.1768,0.2864,2248.6724,1216.651,1747.8506,3185.5743,1644.664,2348.3958,56.1356,-4.1751,80.0968,0.9964,0

@@ -1,0 +1,42 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Environment / secrets
+.env
+
+# Raw data (downloaded, not committed)
+data/*
+!data/README.md
+!data/.gitkeep
+
+# Model forecasts and per-series results (large; the test forecasts and per-series
+# results are published as release downloads instead)
+results/forecasts/
+results/tables/*_per_series.csv.gz
+
+# Tuning studies (SQLite) are regenerable; trials CSV and best YAML are kept
+results/tuning/*.db
+results/tuning/logs/

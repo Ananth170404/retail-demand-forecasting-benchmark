@@ -1,0 +1,125 @@
+# Walmart on the calendar of Kaggle's (unreleased) test period, one year earlier.
+#
+# Train to 2011-10-28, forecast 39 weeks: 2011-11-04 to 2012-07-27, covering
+# Thanksgiving, Christmas and the Super Bowl like Kaggle's Nov 2012 - Jul 2013
+# test. Scored with the competition's WMAE (holiday weeks x5), reported relative
+# to seasonal naive. Not comparable with Kaggle's leaderboard: different year.
+#
+# Only ~91 weeks of training history: under two years, so 52-week lags see
+# exactly one prior year.
+
+dataset: walmart
+modes: [season]
+
+data:
+  trim_zeros: true
+
+significance: true
+
+models:
+  - tag: baselines
+    kind: baselines
+    params:
+      include_slow: true
+      n_jobs: 1
+
+  - tag: gbm
+    kind: gbm
+    params:
+      objectives: [tweedie, l2]
+
+  - tag: nbeats
+    kind: nbeats
+    params:
+      variants: [nbeats, nbeatsx]
+      max_steps: 500
+
+  - tag: nhits
+    kind: neural
+    params: {model: nhits, max_steps: 500}
+
+  - tag: tft
+    kind: neural
+    params: {model: tft, max_steps: 500}
+
+  - tag: bitcn
+    kind: neural
+    params: {model: bitcn, max_steps: 500}
+
+  - tag: deepar
+    kind: neural
+    params: {model: deepar, max_steps: 500}
+
+  # Holiday alignment, measured as an ablation against the plain variants
+  # above: holiday-position features (data/calendar.py). The calendar-shifted
+  # seasonal naive (SNaive-xmas) runs as part of the baselines.
+  - tag: gbmhol
+    kind: gbm
+    params:
+      objectives: [tweedie, l2]
+      holiday_features: true
+
+  - tag: tfthol
+    kind: neural
+    params: {model: tft, max_steps: 500, holiday_features: true}
+
+  # Keep each series' first year in training (lags missing -> NaN). With a
+  # 52-week lag and only 91 weeks of history, dropping those rows leaves no
+  # Christmas among the training targets.
+  - tag: gbmall
+    kind: gbm
+    params:
+      objectives: [tweedie, l2]
+      holiday_features: true
+      keep_incomplete_rows: true
+
+  - tag: gbmallnohol
+    kind: gbm
+    params:
+      objectives: [tweedie]
+      keep_incomplete_rows: true
+
+  # Seasonal differencing: model y_t - y_{t-52}, so holiday spikes and the
+  # January slump come from last year directly. l2 objective: year-over-year
+  # changes can be negative, which tweedie cannot fit.
+  - tag: gbmsdiff
+    kind: gbm
+    params:
+      objectives: [l2]
+      seasonal_difference: 52
+
+  - tag: gbmsdiffhol
+    kind: gbm
+    params:
+      objectives: [l2]
+      seasonal_difference: 52
+      holiday_features: true
+
+  # Feature ablation on the best Walmart setup (seasonal differencing): lags,
+  # rolling stats, calendar, store type, holiday flag, macro + markdowns,
+  # holiday-position features.
+  - tag: gbmladder
+    kind: gbm
+    params:
+      objectives: [l2]
+      seasonal_difference: 52
+      ablation_ladder: true
+
+  # Tuned on the validation window (experiments/tune.py; results/tuning/),
+  # never on this test window. Scored here once.
+  - tag: gbmtuned
+    kind: gbm
+    params:
+      feature_step: lags
+      seasonal_difference: 52
+      objectives:
+      - l2
+      lgb_params:
+        num_leaves: 162
+        learning_rate: 0.02235374790976261
+        n_estimators: 300
+        min_child_samples: 256
+        colsample_bytree: 0.7220487885379965
+        subsample: 0.8434924503576761
+        reg_lambda: 0.03840542332121139
+      model_name: LightGBM-tuned

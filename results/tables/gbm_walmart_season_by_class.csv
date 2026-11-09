@@ -1,0 +1,3 @@
+model,erratic (n=342),intermittent (n=81),lumpy (n=182),smooth (n=2507)
+LightGBM-l2,1.8293,133.9911,15.3986,1.2576
+LightGBM-tweedie,1.3563,1.6652,1.4761,1.202

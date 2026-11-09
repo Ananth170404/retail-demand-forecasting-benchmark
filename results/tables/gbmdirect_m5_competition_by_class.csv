@@ -1,0 +1,2 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+LightGBM-direct,0.6026,0.7148,0.6273,0.6942

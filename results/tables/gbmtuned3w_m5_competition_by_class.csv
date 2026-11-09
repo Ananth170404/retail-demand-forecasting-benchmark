@@ -1,0 +1,2 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+LightGBM-tuned-3w,0.5964,0.7169,0.6254,0.6858

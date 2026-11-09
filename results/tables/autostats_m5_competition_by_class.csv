@@ -1,0 +1,3 @@
+model,erratic (n=860),intermittent (n=22155),lumpy (n=5572),smooth (n=1903)
+AutoETS,0.6248,0.719,0.6346,0.6879
+AutoTheta,0.6262,0.7309,0.6406,0.6922

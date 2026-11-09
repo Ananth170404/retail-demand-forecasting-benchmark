@@ -1,0 +1,2 @@
+model,erratic (n=342),intermittent (n=81),lumpy (n=182),smooth (n=2507)
+LightGBM-l2-hol-sdiff52,1.0459,1.7148,1.2548,1.0347
