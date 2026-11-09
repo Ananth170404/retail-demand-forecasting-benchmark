@@ -9,7 +9,7 @@ published leaderboard.
 
 | | Our best | Compared with |
 |---|---|---|
-| **M5**, WRMSSE (lower is better) | **0.590** | the M5 leaderboard: winner 0.520 · 50th place 0.576 · official ES_bu benchmark 0.671 |
+| **M5**, WRMSSE (lower is better) | **0.590** | the M5 leaderboard: winner 0.520 · official ES_bu benchmark 0.671 |
 | **Walmart**, WMAE ÷ seasonal naive | **0.933** | baselines only: Kaggle never released its test answers, so there is no leaderboard to compare with |
 
 On M5, 0.590 would have ranked roughly 50th–106th of 5,507 teams. That is an estimate,
