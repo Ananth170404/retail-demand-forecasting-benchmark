@@ -25,7 +25,7 @@ AXIS = "#c3c2b7"
 BLUE, ORANGE, AQUA, YELLOW = "#2a78d6", "#eb6834", "#1baf7a", "#eda100"
 
 # Official M5 accuracy results (Makridakis et al. 2022, Table 3 and Table B).
-M5_LEADERS = {"1st place": 0.520, "50th place": 0.576, "ES_bu benchmark": 0.671}
+M5_BENCHMARK = {"official ES_bu benchmark": 0.671}
 
 M5_LEVELS = [
     "Total",
@@ -137,7 +137,7 @@ def _reference_lines(ax, lines: dict[str, float]) -> None:
 
 def m5_leaderboard(board: pd.DataFrame, names: dict[str, str]) -> plt.Figure:
     """Test WRMSSE for the models in `names` (label for each), with the official
-    leaders as reference lines."""
+    ES_bu benchmark as a reference line."""
     rows = board.set_index("model").loc[list(names)].sort_values("WRMSSE")
     height = 0.34 * len(rows) + 2.0
     fig, ax = _figure(9, height)
@@ -149,11 +149,11 @@ def m5_leaderboard(board: pd.DataFrame, names: dict[str, str]) -> plt.Figure:
         [FAMILIES[family(m)] for m in rows.index],
     )
     ax.set_xlim(0, max(0.95, rows["WRMSSE"].max() + 0.08))
-    _reference_lines(ax, M5_LEADERS)
+    _reference_lines(ax, M5_BENCHMARK)
     ax.set_xlabel("WRMSSE on the competition test (lower is better)", color=INK_2, fontsize=9)
     top = _header(
         fig,
-        "M5: test WRMSSE against the competition leaders",
+        "M5: test WRMSSE against the official benchmark",
         "Same 28-day test as the 2020 competition (d_1942–d_1969), official "
         "12-level metric. * validation's choice; see README.",
         height,

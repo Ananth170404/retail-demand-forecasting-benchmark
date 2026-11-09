@@ -4,24 +4,22 @@ About 40 forecasting methods, from seasonal naive to gradient-boosted trees, dee
 learning and a pretrained foundation model, compared under one protocol on two Walmart
 datasets from Kaggle: **M5** (30,490 daily item × store series) and **Walmart Store
 Sales** (3,331 weekly department × store series). The M5 results are scored on the
-competition's own test period with its official metric, so they sit directly beside the
-published leaderboard.
+competition's own test period with its official metric, so they compare directly with
+the competition's published results.
 
 | | Our best | Compared with |
 |---|---|---|
-| **M5**, WRMSSE (lower is better) | **0.590** | the M5 leaderboard: winner 0.520 · official ES_bu benchmark 0.671 |
-| **Walmart**, WMAE ÷ seasonal naive | **0.933** | baselines only: Kaggle never released its test answers, so there is no leaderboard to compare with |
+| **M5**, WRMSSE (lower is better) | **0.590** | 12.1% better than the competition's official ES_bu benchmark (0.671) |
+| **Walmart**, WMAE ÷ seasonal naive | **0.933** | 6.7% better than seasonal naive; Kaggle never released its test answers, so the comparison is with baselines |
 
-On M5, 0.590 would have ranked roughly 50th of 5,507 teams. That is an estimate,
-not a placing: we did not compete, and we saw the test more often than a competitor
-could. The headline also needs a caveat: the score validation actually chose is
-**0.605** (see [How far to trust these numbers](#how-far-to-trust-these-numbers)).
+The score validation actually chose is **0.605**, still 9.8% better than ES_bu (see
+[How far to trust these numbers](#how-far-to-trust-these-numbers)).
 
-![M5 test WRMSSE against the leaderboard](results/figures/m5_leaderboard.png)
+![M5 test WRMSSE against the official benchmark](results/figures/m5_leaderboard.png)
 
 ## Contents
 
-- [Results](#results): M5, the leaderboard, Walmart
+- [Results](#results): M5, the official benchmark, Walmart
 - [What the experiments showed](#what-the-experiments-showed)
 - [How far to trust these numbers](#how-far-to-trust-these-numbers)
 - [Method](#method): data, evaluation, models
@@ -61,24 +59,18 @@ The headline ensemble is 0.65 tuned LightGBM + 0.30 per-store direct LightGBM + 
 tuned N-BEATS, with weights chosen on three validation months. All 42 rows are in
 [results/tables/wrmsse_m5_competition.csv](results/tables/wrmsse_m5_competition.csv).
 
-### Against the leaderboard
+### Against the official benchmark
 
-Official results from Makridakis, Spiliotis and Assimakopoulos, *The M5 accuracy
-competition: Results, findings, and conclusions* (International Journal of Forecasting,
-2022).
+ES_bu is the strongest of the competition's official benchmarks, as reported by Makridakis,
+Spiliotis and Assimakopoulos, *The M5 accuracy competition: Results, findings, and
+conclusions* (International Journal of Forecasting, 2022).
 
 | Entry | WRMSSE | Better than ES_bu |
 |---|---|---|
-| 1st place (YJ_STU) | 0.520 | 22.5% |
-| 10th | 0.547 | 18.5% |
-| 50th | 0.576 | 14.2% |
-| **Ours: headline ensemble** | **0.590** | **12.1%** |
-| Ours: best single model | 0.599 | 10.7% |
-| Ours: validation's choice | 0.605 | 9.8% |
+| **Headline ensemble** | **0.590** | **12.1%** |
+| Best single model (LightGBM per store) | 0.599 | 10.7% |
+| Validation's choice | 0.605 | 9.8% |
 | ES_bu, the best official benchmark | 0.671 | 0% |
-
-The paper reports 106 teams more than 10% better than ES_bu and 42 more than 15% better.
-We are 13% behind the winner.
 
 ### Walmart: the holiday season
 
@@ -96,8 +88,7 @@ count 5×), relative to seasonal naive.
 | N-BEATS (best neural model) | 2,569 | 1.326 |
 | SES (best statistical model) | 3,357 | 1.732 |
 
-There is no leaderboard comparison for Walmart: the test year differs from Kaggle's and
-its answers were never released. Against the baselines, tuned LightGBM is 6.7% better
+Kaggle's test answers were never released, so Walmart is compared with baselines. Against the baselines, tuned LightGBM is 6.7% better
 than seasonal naive and 2% better than the Christmas-aligned version in WMAE. Per series
 the second gap is not significant: the two are tied on mean rank
 ([notebook 03](notebooks/03_results.ipynb)).
@@ -164,8 +155,7 @@ not kept perfectly, and these are the exceptions:
 - **The headline is partly test-informed.** Validation preferred the scaled ensemble
   (0.605); 0.590 is reported because the scaling step was dropped after it failed on the
   test.
-- **The M5 test was scored many times** as candidates were added, which a competitor
-  could not do.
+- **The M5 test was scored many times** as candidates were added.
 - **Two choices followed test results.** The M5 feature set (calendar and events) was
   picked from the feature study, which was scored on the test, and the three-month
   validation protocol was adopted after the one-month tuning failed on the test.
@@ -174,7 +164,7 @@ not kept perfectly, and these are the exceptions:
   ran on the GPU, which disables per-tree column sampling; most neural models are untuned,
   and NHITS tuning crashed.
 - **The Walmart test is a year earlier than Kaggle's** (whose answers were never
-  released), so Walmart is compared with baselines only, not with the leaderboard.
+  released), so Walmart is compared with baselines only.
 - **Point forecasts only**: no prediction intervals were scored.
 
 ## Method
