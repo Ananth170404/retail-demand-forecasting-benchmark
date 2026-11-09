@@ -31,7 +31,7 @@ This populates `data/raw/m5/` and `data/raw/walmart/` (both git-ignored — see 
 ```python
 from forecasting.data.loaders import load_dataset
 
-product_df, roles = load_dataset("m5")       # or "walmart"
+product_df, roles = load_dataset("m5")  # or "walmart"
 ```
 
 Both loaders return the same shape: `product_df` with `demand_date`, `product_id`,
